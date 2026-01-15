@@ -1,0 +1,12 @@
+<h1>Available Rooms</h1>
+<ul>
+  {%for room in rooms %}
+  <li>
+    <strong>{{ room.name }}</strong><br>
+    {{ room.description }}<br>
+    Price {{ room.price }} PLN
+  </li>
+  {% empty %}
+  <li>No rooms awailable.</li>
+  {% endfor %}
+</ul>
