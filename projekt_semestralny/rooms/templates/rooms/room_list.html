@@ -1,12 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Rooms{% endblock %}
+
+{% block content %}
 <h1>Available Rooms</h1>
-<ul>
+<ul class="list group">
+  <a href="{% url 'create_reservation' %}" class="btn btn-success mb-3">New reservation</a>
   {%for room in rooms %}
-  <li>
+  <li class="list-group-item">
     <strong>{{ room.name }}</strong><br>
-    {{ room.description }}<br>
-    Price {{ room.price }} PLN
+    <p>{{ room.description }}</p>
+    <span class="badge bg-secondary">Price {{ room.price }} PLN</span>
   </li>
   {% empty %}
   <li>No rooms awailable.</li>
   {% endfor %}
 </ul>
+{% endblock %}

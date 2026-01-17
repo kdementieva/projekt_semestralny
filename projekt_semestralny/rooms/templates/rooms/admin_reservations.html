@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Admin panel{% endblock %}
+
+{% block content %}
+<h2>Admin – reservations</h2>
+
+<a href="/rooms/admin-panel/dashboard/" class="btn btn-outline-info">
+  Dashboard
+</a>
+
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Room</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reservations %}
+    <tr>
+      <td>{{ r.user.username }}</td>
+      <td>{{ r.room.name }}</td>
+      <td>{{ r.reservation_time_start }}</td>
+      <td>{{ r.reservation_time_end }}</td>
+      <td>{{ r.status }}</td>
+      <td>
+        {% if r.status == 'pending' %}
+          <a href="{% url 'approve_reservation' r.id %}" class="btn btn-sm btn-success">
+            Approve
+          </a>
+          <a href="{% url 'reject_reservation' r.id %}" class="btn btn-sm btn-danger">
+            Reject
+          </a>
+        {% else %}
+          —
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

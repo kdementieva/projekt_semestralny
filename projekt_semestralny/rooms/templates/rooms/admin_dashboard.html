@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Admin dashboard</h2>
+
+<ul class="list-group">
+  <li class="list-group-item">All reservations: {{ total }}</li>
+  <li class="list-group-item">Pending: {{ pending }}</li>
+  <li class="list-group-item">Approved: {{ approved }}</li>
+  <li class="list-group-item">Cancelled: {{ cancelled }}</li>
+</ul>
+{% endblock %}

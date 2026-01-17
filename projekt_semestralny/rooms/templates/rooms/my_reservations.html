@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block title %}My reservations{% endblock %}
+
+{% block content %}
+<h2>My reservations</h2>
+
+{% if reservations %}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Room</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in reservations %}
+    <tr>
+      <td>{{ r.room.name }}</td>
+      <td>{{ r.reservation_time_start }}</td>
+      <td>{{ r.reservation_time_end }}</td>
+      <td>
+        {% if r.status == 'pending' %}
+          <span class="badge bg-warning">Pending</span>
+        {% elif r.status == 'approved' %}
+          <span class="badge bg-success">Approved</span>
+        {% else %}
+          <span class="badge bg-danger">Cancelled</span>
+        {% endif %}
+      </td>
+      <td>
+        {% if r.status == 'pending' %}
+          <a href="{% url 'edit_reservation' r.id %}" class="btn btn-sm btn-warning">
+            Edit
+          </a>
+          <a href="{% url 'cancel_reservation' r.id %}"
+            class="btn btn-sm btn-danger"
+            onclick="return confirm('Cancel this reservation?');">
+            Cancel
+          </a>
+        {% else %}
+          —
+        {% endif %}
+      </td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>You have no reservations.</p>
+{% endif %}
+
+{% endblock %}

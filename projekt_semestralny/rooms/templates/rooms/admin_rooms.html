@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Admin – Rooms</h2>
+
+<a href="{% url 'admin_room_create' %}" class="btn btn-success mb-3">
+  Add room
+</a>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Actions</th>
+  </tr>
+  {% for room in rooms %}
+  <tr>
+    <td>{{ room.name }}</td>
+    <td>{{ room.price }}</td>
+    <td>
+      <a href="{% url 'admin_room_edit' room.id %}"
+        class="btn btn-sm btn-warning">
+        Edit
+      </a>
+
+      <form method="post"
+            action="{% url 'admin_room_delete' room.id %}"
+            style="display:inline;"
+            onsubmit="return confirmDelete('{{ room.name }}');">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-danger">
+          Delete
+        </button>
+      </form>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<script>
+function confirmDelete(roomName) {
+  return confirm(
+    "Are you sure you want to delete room: \"" + roomName + "\"?"
+  );
+}
+</script>
+
+{% endblock %}
+
+
+
