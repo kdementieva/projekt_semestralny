@@ -1,13 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Usuń salę</h2>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm border-danger">
+      <div class="card-body text-center">
+        <h4 class="card-title text-danger mb-3">Usuń salę</h4>
 
-<p>Czy na pewno chcesz usunąć <strong>{{ room.name }}</strong>?</p>
+        <p>
+          Czy na pewno chcesz usunąć salę
+          <strong>{{ room.name }}</strong>?
+        </p>
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-danger">Tak, usuń</button>
-  <a href="{% url 'admin_rooms' %}" class="btn btn-secondary">Anuluj</a>
-</form>
+        <p class="text-muted mb-4">
+          Tej operacji nie można cofnąć.
+        </p>
+
+        <form method="post" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger me-2">
+            Tak, usuń
+          </button>
+          <a href="{% url 'admin_rooms' %}" class="btn btn-secondary">
+            Anuluj
+          </a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

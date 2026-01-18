@@ -1,17 +1,41 @@
 {% extends "base.html" %}
+{% load form_tags %}
 
 {% block title %}Logowanie{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-md-4">
-    <h2>Logowanie</h2>
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-3 text-center">Logowanie</h4>
 
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Zaloguj się</button>
-    </form>
+        <form method="post">
+          {% csrf_token %}
+
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label">{{ field.label }}</label>
+
+              {{ field|add_class:"form-control" }}
+
+              {% if field.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ field.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary">
+              Zaloguj się
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

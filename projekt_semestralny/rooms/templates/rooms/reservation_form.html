@@ -1,13 +1,51 @@
 {% extends "base.html" %}
+{% load form_tags %}
 
 {% block title %}Zarezerwuj salę{% endblock %}
 
 {% block content %}
-<h2>Zarezerwuj salę</h2>
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h4 class="card-title mb-3 text-center">Zarezerwuj salę</h4>
 
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Zarezerwuj</button>
-</form>
+        <form method="post">
+          {% csrf_token %}
+
+          {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+              {{ form.non_field_errors|striptags }}
+            </div>
+          {% endif %}
+
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label">{{ field.label }}</label>
+
+              {% if field.field.widget.input_type == "select" %}
+                {{ field|add_class:"form-select" }}
+              {% else %}
+                {{ field|add_class:"form-control" }}
+              {% endif %}
+
+              {% if field.errors %}
+                <div class="invalid-feedback d-block">
+                  {{ field.errors|striptags }}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success">
+              Zarezerwuj
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

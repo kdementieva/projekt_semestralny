@@ -3,17 +3,36 @@
 {% block title %}Sale{% endblock %}
 
 {% block content %}
-<h1>Dostępne sale</h1>
-<ul class="list group">
-  <a href="{% url 'create_reservation' %}" class="btn btn-success mb-3">Nowa rezerwacja</a>
+<h1 class="mb-3">Dostępne sale</h1>
+
+<a href="{% url 'create_reservation' %}" class="btn btn-success mb-3">
+  + Nowa rezerwacja
+</a>
+
+<div class="row g-3">
   {% for room in rooms %}
-  <li class="list-group-item">
-    <strong>{{ room.name }}</strong><br>
-    <p>{{ room.description }}</p>
-    <span class="badge bg-secondary">Cena {{ room.price }} PLN</span>
-  </li>
+  <div class="col-md-4">
+    <div class="card h-100 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title">{{ room.name }}</h5>
+        <p class="card-text text-muted">
+          {{ room.description }}
+        </p>
+      </div>
+      <div class="card-footer bg-white border-0">
+        <span class="badge bg-secondary">
+          Cena: {{ room.price }} PLN
+        </span>
+      </div>
+    </div>
+  </div>
   {% empty %}
-  <li>Brak dostępnych sal.</li>
+  <div class="col-12">
+    <div class="alert alert-info">
+      Brak dostępnych sal.
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% endblock %}
+

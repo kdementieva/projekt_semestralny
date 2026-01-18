@@ -3,55 +3,61 @@
 {% block title %}Moje rezerwacje{% endblock %}
 
 {% block content %}
-<h2>Moje rezerwacje</h2>
+<h2 class="mb-3">Moje rezerwacje</h2>
 
 {% if reservations %}
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Sala</th>
-      <th>Od</th>
-      <th>Do</th>
-      <th>Status</th>
-      <th>Akcje</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for r in reservations %}
-    <tr>
-      <td>{{ r.room.name }}</td>
-      <td>{{ r.reservation_time_start }}</td>
-      <td>{{ r.reservation_time_end }}</td>
-      <td>
-        {% if r.status == 'pending' %}
-          <span class="badge bg-warning">Oczekująca</span>
-        {% elif r.status == 'approved' %}
-          <span class="badge bg-success">Zatwierdzona</span>
-        {% else %}
-          <span class="badge bg-danger">Anulowana</span>
-        {% endif %}
-      </td>
-      <td>
-        {% if r.status == 'pending' %}
-          <a href="{% url 'edit_reservation' r.id %}" class="btn btn-sm btn-warning">
-            Edytuj
-          </a>
-          <a href="{% url 'cancel_reservation' r.id %}"
-            class="btn btn-sm btn-danger"
-            onclick="return confirm('Anulować tę rezerwację?');">
-            Anuluj
-          </a>
-        {% else %}
-          —
-        {% endif %}
-      </td>
-
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="card shadow-sm">
+  <div class="card-body p-0">
+    <table class="table table-striped table-hover mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Sala</th>
+          <th>Od</th>
+          <th>Do</th>
+          <th>Status</th>
+          <th class="text-end">Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in reservations %}
+        <tr>
+          <td>{{ r.room.name }}</td>
+          <td>{{ r.reservation_time_start }}</td>
+          <td>{{ r.reservation_time_end }}</td>
+          <td>
+            {% if r.status == 'pending' %}
+              <span class="badge bg-warning">Oczekująca</span>
+            {% elif r.status == 'approved' %}
+              <span class="badge bg-success">Zatwierdzona</span>
+            {% else %}
+              <span class="badge bg-danger">Anulowana</span>
+            {% endif %}
+          </td>
+          <td class="text-end">
+            {% if r.status == 'pending' %}
+              <a href="{% url 'edit_reservation' r.id %}"
+                 class="btn btn-sm btn-warning">
+                Edytuj
+              </a>
+              <a href="{% url 'cancel_reservation' r.id %}"
+                 class="btn btn-sm btn-danger"
+                 onclick="return confirm('Czy na pewno chcesz anulować tę rezerwację?');">
+                Anuluj
+              </a>
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% else %}
-<p>Nie masz żadnych rezerwacji.</p>
+<div class="alert alert-info">
+  Nie masz żadnych rezerwacji.
+</div>
 {% endif %}
 
 {% endblock %}

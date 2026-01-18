@@ -1,12 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Panel administratora</h2>
+<h2 class="mb-4">Panel administratora</h2>
 
-<ul class="list-group">
-  <li class="list-group-item">Wszystkie rezerwacje: {{ total }}</li>
-  <li class="list-group-item">Oczekujące: {{ pending }}</li>
-  <li class="list-group-item">Zatwierdzone: {{ approved }}</li>
-  <li class="list-group-item">Anulowane: {{ cancelled }}</li>
-</ul>
+<div class="row g-3">
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-muted">Wszystkie rezerwacje</h6>
+        <p class="fs-4 fw-bold mb-0">{{ total }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-muted">Oczekujące</h6>
+        <p class="fs-4 fw-bold text-warning mb-0">{{ pending }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-muted">Zatwierdzone</h6>
+        <p class="fs-4 fw-bold text-success mb-0">{{ approved }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <div class="card text-center shadow-sm">
+      <div class="card-body">
+        <h6 class="card-title text-muted">Anulowane</h6>
+        <p class="fs-4 fw-bold text-danger mb-0">{{ cancelled }}</p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
