@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}Admin panel{% endblock %}
+{% block title %}Panel administratora{% endblock %}
 
 {% block content %}
-<h2>Admin – reservations</h2>
+<h2>Administrator – rezerwacje</h2>
 
 <a href="/rooms/admin-panel/dashboard/" class="btn btn-outline-info">
-  Dashboard
+  Panel główny
 </a>
 
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Room</th>
-      <th>From</th>
-      <th>To</th>
+      <th>Użytkownik</th>
+      <th>Sala</th>
+      <th>Od</th>
+      <th>Do</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th>Akcje</th>
     </tr>
   </thead>
   <tbody>
@@ -31,10 +31,10 @@
       <td>
         {% if r.status == 'pending' %}
           <a href="{% url 'approve_reservation' r.id %}" class="btn btn-sm btn-success">
-            Approve
+            Zatwierdź
           </a>
           <a href="{% url 'reject_reservation' r.id %}" class="btn btn-sm btn-danger">
-            Reject
+            Odrzuć
           </a>
         {% else %}
           —

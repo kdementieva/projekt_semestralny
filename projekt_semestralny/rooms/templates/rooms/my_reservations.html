@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 
-{% block title %}My reservations{% endblock %}
+{% block title %}Moje rezerwacje{% endblock %}
 
 {% block content %}
-<h2>My reservations</h2>
+<h2>Moje rezerwacje</h2>
 
 {% if reservations %}
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Room</th>
-      <th>From</th>
-      <th>To</th>
+      <th>Sala</th>
+      <th>Od</th>
+      <th>Do</th>
       <th>Status</th>
-      <th>Actions</th>
+      <th>Akcje</th>
     </tr>
   </thead>
   <tbody>
@@ -24,22 +24,22 @@
       <td>{{ r.reservation_time_end }}</td>
       <td>
         {% if r.status == 'pending' %}
-          <span class="badge bg-warning">Pending</span>
+          <span class="badge bg-warning">Oczekująca</span>
         {% elif r.status == 'approved' %}
-          <span class="badge bg-success">Approved</span>
+          <span class="badge bg-success">Zatwierdzona</span>
         {% else %}
-          <span class="badge bg-danger">Cancelled</span>
+          <span class="badge bg-danger">Anulowana</span>
         {% endif %}
       </td>
       <td>
         {% if r.status == 'pending' %}
           <a href="{% url 'edit_reservation' r.id %}" class="btn btn-sm btn-warning">
-            Edit
+            Edytuj
           </a>
           <a href="{% url 'cancel_reservation' r.id %}"
             class="btn btn-sm btn-danger"
-            onclick="return confirm('Cancel this reservation?');">
-            Cancel
+            onclick="return confirm('Anulować tę rezerwację?');">
+            Anuluj
           </a>
         {% else %}
           —
@@ -51,7 +51,7 @@
   </tbody>
 </table>
 {% else %}
-<p>You have no reservations.</p>
+<p>Nie masz żadnych rezerwacji.</p>
 {% endif %}
 
 {% endblock %}

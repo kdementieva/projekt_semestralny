@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Admin – Rooms</h2>
+<h2>Administrator – sale</h2>
 
 <a href="{% url 'admin_room_create' %}" class="btn btn-success mb-3">
-  Add room
+  Dodaj salę
 </a>
 
 <table class="table table-striped">
   <tr>
-    <th>Name</th>
-    <th>Price</th>
-    <th>Actions</th>
+    <th>Nazwa</th>
+    <th>Cena</th>
+    <th>Akcje</th>
   </tr>
   {% for room in rooms %}
   <tr>
@@ -20,7 +20,7 @@
     <td>
       <a href="{% url 'admin_room_edit' room.id %}"
         class="btn btn-sm btn-warning">
-        Edit
+        Edytuj
       </a>
 
       <form method="post"
@@ -29,7 +29,7 @@
             onsubmit="return confirmDelete('{{ room.name }}');">
         {% csrf_token %}
         <button type="submit" class="btn btn-sm btn-danger">
-          Delete
+          Usuń
         </button>
       </form>
     </td>
@@ -40,7 +40,7 @@
 <script>
 function confirmDelete(roomName) {
   return confirm(
-    "Are you sure you want to delete room: \"" + roomName + "\"?"
+    "Czy na pewno chcesz usunąć salę: \"" + roomName + "\"?"
   );
 }
 </script>

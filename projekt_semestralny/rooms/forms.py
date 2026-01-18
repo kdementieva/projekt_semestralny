@@ -8,11 +8,16 @@ class ReservationForm(forms.ModelForm):
   class Meta:
     model = Reservation
     fields = ['room', 'reservation_time_start', 'reservation_time_end']
+    labels = {
+      'room': 'Sala',
+      'reservation_time_start': 'Początek rezerwacji',
+      'reservation_time_end': 'Koniec rezerwacji',
+    }
     widgets = {
       'reservation_time_start': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
       'reservation_time_end': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
     }
-  
+
   def clean(self):
     cleaned_data = super().clean()
     room = cleaned_data.get('room')
@@ -22,18 +27,24 @@ class ReservationForm(forms.ModelForm):
 
     if not start or not end:
       return cleaned_data
+
     if start < now:
-      raise ValidationError("Nie moożna rezerwować terminu w przeszłości.")
+      raise ValidationError("Nie można rezerwować terminu w przeszłości.")
+
     if end < now:
-      raise ValidationError("Data zakończenia nie może byc w przeszlości.")
-    duration = end - start
-    if duration < timedelta(hours=1):
-      raise ValidationError("Minimalny czas rezerwacji to 1 godzina")
-    if duration > timedelta(hours=24):
-      raise ValidationError("Maksymalny czas rezerwacji to 24 godziny")
+      raise ValidationError("Data zakończenia nie może być w przeszłości.")
+
     if end <= start:
       raise ValidationError("Data zakończenia musi być późniejsza niż data rozpoczęcia.")
-    
+
+    duration = end - start
+
+    if duration < timedelta(hours=1):
+      raise ValidationError("Minimalny czas rezerwacji to 1 godzina.")
+
+    if duration > timedelta(hours=24):
+      raise ValidationError("Maksymalny czas rezerwacji to 24 godziny.")
+
     collision = Reservation.objects.filter(
       room=room,
       status__in=['pending', 'approved'],
@@ -42,8 +53,10 @@ class ReservationForm(forms.ModelForm):
     ).exists()
 
     if collision:
-      raise  ValidationError("Wybrany termin już niedostępny - sala jest już zarezerwowana.")
-    
+      raise ValidationError(
+        "Wybrany termin jest niedostępny — sala jest już zarezerwowana."
+      )
+
     return cleaned_data
 
 
@@ -51,3 +64,8 @@ class RoomForm(forms.ModelForm):
   class Meta:
     model = Room
     fields = ['name', 'description', 'price']
+    labels = {
+      'name': 'Nazwa sali',
+      'description': 'Opis',
+      'price': 'Cena (PLN)',
+    }

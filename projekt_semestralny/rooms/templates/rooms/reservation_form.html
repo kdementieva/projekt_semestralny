@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %}Reserve Room{% endblock %}
+{% block title %}Zarezerwuj salę{% endblock %}
 
 {% block content %}
-<h2>Reserve a room</h2>
+<h2>Zarezerwuj salę</h2>
 
 <form method="post">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit" class="btn btn-success">Reserve</button>
+  <button type="submit" class="btn btn-success">Zarezerwuj</button>
 </form>
 {% endblock %}
